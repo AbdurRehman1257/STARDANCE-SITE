@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uchiha | Itachi Archive & Translator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #070708;
+            color: #f4f4f5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Top Navigation Bar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            background: rgba(7, 7, 8, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-box {
+            background-color: #dc2626;
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .logo-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #a1a1aa;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #71717a;
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #fff;
+        }
+
+        /* Sections (Full Screen Height) */
+        .section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Section 1: Hero Wallpaper */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(7,7,8,0.9) 90%);
+            z-index: 2;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .japanese-sub {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 0.5em;
+            margin-bottom: -1.5rem;
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+        }
+
+        .quote-box {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            letter-spacing: 0.1em;
+            border-left: 2px solid #dc2626;
+            padding-left: 1rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            color: #71717a;
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .scroll-down:hover {
+            color: #dc2626;
+        }
+
+        /* Section 2: Translator Interface */
+        .translator-container {
+            position: relative;
+            z-index: 3;
+            background: rgba(18, 18, 20, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .translator-container h2 {
+            font-size: 1.25rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .translator-container h2 span {
+            color: #dc2626;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: #a1a1aa;
+            margin-bottom: 0.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(9, 9, 11, 0.8);
+            border: 1px solid #27272a;
+            border-radius: 8px;
+            padding: 1rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            resize: none;
+            height: 100px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #dc2626;
+        }
+
+        .output-box {
+            background: rgba(9, 9, 11, 0.5);
+            border: 1px dashed #27272a;
+            border-radius: 8px;
+            padding: 1rem;
+            min-height: 80px;
+            font-size: 1.2rem;
+            color: #dc2626;
+            letter-spacing: 0.1em;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fixed Header -->
+    <header>
+        <div class="logo-area">
+            <div class="logo-box">UCA</div>
+            <span class="logo-text">UCHIHA // ENG TO JAPANESE</span>
+        </div>
+        <nav>
+            <a href="#home" class="active">EYES</a>
+            <a href="#translator">JUTSU</a>
+        </nav>
+    </header>
+
+    <!-- Section 1: Hero Showcase -->
+    <section id="home" class="section">
+        <img src="itachi-uchiha-dark-3840x2160-25719.jpg" alt="Itachi Wallpaper" class="hero-bg">
+        <div class="hero-overlay"></div>
+
+        <div class="content-container">
+            <div class="japanese-sub">うちはイタチ</div>
+            <h1 class="main-title">Itachi Uchiha</h1>
+            <div class="quote-box">
+                "Whatever you do, no matter what, you follow your own path."
+            </div>
+        </div>
+>
+        <a href="#translator" class="scroll-down">
+            SCROLL DOWN <span>↓</span>
+        </a>
+    </section>
+
+    <!-- Section 2: English to Japanese Converter Interface -->
+    <section id="translator" class="section"> 
+        <img src="peakpx.jpg" alt="Second Wallpaper" class="hero-bg">
+        
+
+        <div class="translator-container">
+            <h2><span>⚡</span> Romaji to Kana Converter</h2>
+            
+            <div class="input-group">
+                <label for="englishInput">ENTER ENGLISH LETTERS (FROM NARUTO SERIES)</label>
+                <textarea id="englishInput" placeholder="Type letters like 'itachi', 'sasuke', 'sharingan'..." oninput="convertToJapanese()"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>JAPANESE OUTPUT</label>
+                <div id="japaneseOutput" class="output-box">Waiting for input...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Translation Script -->
+    <script>
+        function convertToJapanese() {
+            const input = document.getElementById('englishInput').value.toLowerCase().trim();
+            const outputBox = document.getElementById('japaneseOutput');
+
+            if (!input) {
+                outputBox.innerText = "Waiting for input...";
+                return;
+            }
+
+            // Basic phonetic translation map for demonstration
+            const map = {
+                'itachi': 'うちはイタチ',
+                'sasuke': 'うちはサスケ',
+                'sharingan': '写輪眼',
+                'sharingan eyes': '写輪眼',
+                'mangekyo': '万華鏡写輪眼',
+                'uchiha': 'うちは',
+                'naruto': 'ナルト',
+                'shinobi': '忍者',
+                'konoha': '木ノ葉隠れの里',
+                'akatsuki': '暁',
+                'susanoo': '須佐能乎',
+                'tsukuyomi': '月読',
+                'amaterasu': '天照'
+            };
+
+            // Check dictionary map or return custom phonetic fallback characters
+            if (map[input]) {
+                outputBox.innerText = map[input];
+            } else {
+                // Simple character conversion substitution fallback
+                let converted = input
+                    .replace(/a/g, 'あ').replace(/i/g, 'い').replace(/u/g, 'う').replace(/e/g, 'え').replace(/o/g, 'お')
+                    .replace(/ka/g, 'か').replace(/ki/g, 'き').replace(/ku/g, 'く').replace(/ke/g, 'け').replace(/ko/g, 'こ')
+                    .replace(/sa/g, 'さ').replace(/shi/g, 'し').replace(/su/g, 'す').replace(/se/g, 'せ').replace(/so/g, 'そ')
+                    .replace(/ta/g, 'た').replace(/chi/g, 'ち').replace(/tsu/g, 'つ').replace(/te/g, 'て').replace(/to/g, 'と')
+                    .replace(/na/g, 'な').replace(/ni/g, 'に').replace(/nu/g, 'ぬ').replace(/ne/g, 'ね').replace(/no/g, 'の');
+                
+                outputBox.innerText = converted;
+            }
+        }
+    </script>
+
+</body>
+</html>
